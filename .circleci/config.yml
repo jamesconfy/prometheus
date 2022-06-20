@@ -1,6 +1,17 @@
 version: '2.1'
+
 orbs:
   aws-cli: circleci/aws-cli@3.1
+
+commands:
+  - runinfrastructure:
+      command: |
+              aws cloudformation deploy \
+                --template-file template.yml \
+                --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
+                --parameters server-params.json \
+                --region us-east-1
+
 jobs:
   aws-cli-example:
     executor: aws-cli/default
@@ -9,6 +20,21 @@ jobs:
       - aws-cli/setup:
           profile-name: example
       - run: echo "Run your code here"
+
+  create-infrastructure:
+    docker: 
+      - image: aws-cli/default
+    steps:
+      - checkout
+      - run:
+        name: Create Infrastructure As Code
+        command: |
+          aws cloudformation deploy \
+          --template-file server.yml \
+          --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
+          --parameters server-params.json \
+          --region us-east-1
+
 workflows:
   aws-cli:
     jobs:

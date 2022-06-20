@@ -1,0 +1,41 @@
+Description:  Create Ubuntu Server
+
+Parameters:
+  ImageToUse:
+    Description: Image to use
+    Type: String
+
+  KeyName:
+    Description: Key to use
+    Type: String
+
+Resources:
+  MyInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      SecurityGroups: !Ref MyInstanceSecurityGroup
+      ImageId: !Ref ImageToUse
+      KeyName: !Ref KeyName
+      InstanceType: t2.micro
+      Tags:
+        - Key: Name
+          Value: Udacity
+
+  MyInstanceSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Enable SSH access via port 22
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: '80'
+          ToPort: '80'
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: '80'
+          ToPort: '80'
+          CidrIp: 0.0.0.0/0

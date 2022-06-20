@@ -1,0 +1,21 @@
+Description:  Create Ubuntu Server
+
+Parameters:
+  ImageToUse:
+    Description: Image to use
+    Type: String
+
+  KeyName:
+    Description: Key to use
+    Type: String
+
+Resources:
+  MyInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref ImageToUse
+      KeyName: !Ref KeyName
+      InstanceType: t2.micro
+      Tags:
+        - Key: Name
+          Value: Udacity

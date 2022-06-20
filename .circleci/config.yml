@@ -14,7 +14,7 @@ jobs:
 
   create-infrastructure:
     docker: 
-      - image: aws-cli/default
+      - image: amazon/aws-cli
     steps:
       - checkout
       - run:

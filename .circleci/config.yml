@@ -12,7 +12,7 @@ jobs:
           profile-name: example
       - run: echo "Run your code here"
 
-  create-infrastructure:
+  create_infrastructure:
     docker: 
       - image: amazon/aws-cli
     steps:
@@ -30,4 +30,5 @@ workflows:
     jobs:
       - aws-cli-example:
           context: aws
+      - create_infrastructure
 

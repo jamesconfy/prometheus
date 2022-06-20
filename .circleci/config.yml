@@ -18,12 +18,12 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Create Infrastructure As Code
-        command: |
-          aws cloudformation deploy \
-            --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
-            --template-file server.yml \
-            --region us-east-1
+          name: Create Infrastructure As Code
+          command: |
+            aws cloudformation deploy \
+              --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
+              --template-file server.yml \
+              --region us-east-1
 
 workflows:
   aws-cli:

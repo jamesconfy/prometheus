@@ -15,7 +15,7 @@ Resources:
     Properties:
       SecurityGroups: !Ref MyInstanceSecurityGroup
       ImageId: !Ref ImageToUse
-      KeyName: !Ref KeyName
+      KeyName: lesson3key
       InstanceType: t2.micro
       Tags:
         - Key: Name

@@ -1,21 +1,12 @@
 Description:  Create Ubuntu Server
-
-Parameters:
-  ImageToUse:
-    Description: Image to use
-    Type: String
-
-  KeyName:
-    Description: Key to use
-    Type: String
-
 Resources:
   MyInstance:
     Type: AWS::EC2::Instance
     Properties:
-      SecurityGroups: !Ref MyInstanceSecurityGroup
-      ImageId: !Ref ImageToUse
-      KeyName: !Ref KeyName
+      SecurityGroups: 
+        - !Ref MyInstanceSecurityGroup
+      ImageId: ami-052efd3df9dad4825
+      KeyName: lesson3key
       InstanceType: t2.micro
       Tags:
         - Key: Name
@@ -34,8 +25,4 @@ Resources:
           FromPort: '80'
           ToPort: '80'
           CidrIp: 0.0.0.0/0
-      SecurityGroupEgress:
-        - IpProtocol: tcp
-          FromPort: '80'
-          ToPort: '80'
-          CidrIp: 0.0.0.0/0
+        

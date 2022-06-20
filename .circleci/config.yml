@@ -20,10 +20,9 @@ jobs:
       - run:
         name: Create Infrastructure As Code
         command: |
-          aws cloudformation create-stack \
+          aws cloudformation deploy \
             --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
             --template-file server.yml \
-            --parameters server-params.json \
             --region us-east-1
 
 workflows:

@@ -15,7 +15,6 @@ jobs:
   create_infrastructure:
     docker: 
       - image: amazon/aws-cli
-    executor: aws-cli/default
     steps:
       - checkout
       - run:
@@ -28,7 +27,9 @@ jobs:
 
   configure_infrastructure: 
     docker:
-      - image: python:3.10.5-alpine3.11
+      - image: python:3.10-alpine3.11
+      - image: amazon/aws-cli
+    executor: aws-cli/default
     steps:
       - checkout 
       - add_ssh_keys:

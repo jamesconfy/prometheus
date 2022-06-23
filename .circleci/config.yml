@@ -3,6 +3,21 @@ version: '2.1'
 orbs:
   aws-cli: circleci/aws-cli@3.1
 
+commands:
+  create_environment:
+    steps:
+      run:
+        name: Create Environment
+        command: |
+          aws cloudformation deploy --stack-name prod-${CIRCLE_WORKFLOW_ID:0:5} --template-file server.yml --region us-east-1
+               
+  destroy_environment:
+    steps:
+      run:
+        name: Destroy Environment
+        command: |
+          aws cloudformation delete-stack --stack-name prod-${CIRCLE_WORKFLOW_ID:0:5}
+
 jobs:
   aws-cli-example:
     executor: aws-cli/default
@@ -17,13 +32,7 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - run:
-          name: Create Infrastructure As Code
-          command: |
-            aws cloudformation deploy \
-              --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
-              --template-file server.yml \
-              --region us-east-1
+      - create_environment
 
   configure_infrastructure: 
     docker:
@@ -51,20 +60,22 @@ jobs:
       - run:
           name: smoke test
           command: |
-            URL="https://blog.udacity.com/"
-            # Test if website exists
-            if curl -s --head ${URL} 
-            then
-              return 0
-            else
-              return 1
-            fi
-
+            return 1
+            # URL="https://blog.udacity.com/"
+            # # Test if website exists
+            # if curl -s --head ${URL} 
+            # then
+            #   return 0
+            # else
+            #   return 1
+            # fi
+      - destroy_environment
 workflows:
   aws-cli:
     jobs:
       - aws-cli-example:
           context: aws
-    #  - create_infrastructure
+      - create_infrastructure
     #  - configure_infrastructure
-      - smoke_test
+      - smoke_test:
+          requires: create_infrastructure

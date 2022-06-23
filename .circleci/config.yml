@@ -70,11 +70,9 @@ jobs:
 
   failed_smoke_test:
     docker:
-      - image: alpine:latest
       - image: amazon/aws-cli
     steps:
       - checkout
-      - run: apk add --update curl
       - run:
           name: Smoke Test
           command: return 1
@@ -93,5 +91,3 @@ workflows:
       - failed_smoke_test:
           requires: 
             - passed_smoke_test
-
-        

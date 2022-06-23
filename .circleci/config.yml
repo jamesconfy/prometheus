@@ -31,7 +31,7 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-              fingerprints: ["e4:31:75:0e:cf:31:37:bc:25:8a:74:c8:14:d0:91:7b"] 
+          fingerprints: ["e4:31:75:0e:cf:31:37:bc:25:8a:74:c8:14:d0:91:7b"] 
       - run:
           name: Install Ansible
           command: |
@@ -39,7 +39,7 @@ jobs:
       - run:
           name: Run Playbook and Configure server
           command: |
-            ansible-playbook -i inventory.txt main-remote.yml
+            ansible-playbook main-remote.yml -i inventory.txt
 
 workflows:
   aws-cli:
@@ -48,4 +48,3 @@ workflows:
           context: aws
     #  - create_infrastructure
       - configure_infrastructure
-

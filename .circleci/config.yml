@@ -6,15 +6,16 @@ orbs:
 commands:
   create_environment:
     steps:
-      run:
-        name: Create Environment
-        command: aws cloudformation deploy --stack-name prod-${CIRCLE_WORKFLOW_ID:0:5} --template-file server.yml --region us-east-1
+      - run:
+          name: Create Environment
+          command: aws cloudformation deploy --stack-name prod-${CIRCLE_WORKFLOW_ID:0:5} --template-file server.yml --region us-east-1
                
   destroy_environment:
     steps:
-      run:
-        name: Destroy Environment
-        command: aws cloudformation delete-stack --stack-name prod-${CIRCLE_WORKFLOW_ID:0:5}
+      - run:
+          name: Destroy Environment
+          when: on_fails
+          command: aws cloudformation delete-stack --stack-name prod-${CIRCLE_WORKFLOW_ID:0:5}
 
 jobs:
   aws-cli-example:

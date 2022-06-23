@@ -42,11 +42,9 @@ jobs:
             ansible-playbook main-remote.yml -i inventory.txt
 
 workflows:
-  #aws-cli:
-   # jobs:
-    #  - aws-cli-example:
-     #     context: aws
-    #  - create_infrastructure
-  deploy:
+  aws-cli:
     jobs:
+      - aws-cli-example:
+          context: aws
+    #  - create_infrastructure
       - configure_infrastructure

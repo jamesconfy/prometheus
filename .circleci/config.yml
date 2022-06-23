@@ -47,4 +47,5 @@ workflows:
       - aws-cli-example:
           context: aws
     #  - create_infrastructure
-      - configure_infrastructure
+  jobs:
+    - configure_infrastructure

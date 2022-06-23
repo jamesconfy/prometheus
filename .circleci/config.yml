@@ -32,10 +32,10 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints: ["e4:31:75:0e:cf:31:37:bc:25:8a:74:c8:14:d0:91:7b"] 
-      - run:
-          name: Update apk
-          command: |
-            apk update
+      - run: sudo apt-get install ssh
+      - run: sudo systemctl ssh start
+      - run: sudo systemctl ssh enable
+      - run: service ssh status
       - run:
           name: Install Ansible
           command: |

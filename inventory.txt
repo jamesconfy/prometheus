@@ -1,2 +1,2 @@
 [all]
-3.87.203.118
+ec2-3-87-203-118.compute-1.amazonaws.com

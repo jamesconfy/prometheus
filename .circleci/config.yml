@@ -78,7 +78,7 @@ jobs:
           command: return 1
       - destroy_environment
 
-  create_and_deploy_frontend:
+  create_and_deploy_front_end:
     docker:
       - image: amazon/aws-cli
     steps:
